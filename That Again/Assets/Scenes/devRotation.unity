@@ -416,10 +416,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5845088482684526951, guid: 0e64e8c1349b8684ebc9389f381c79ec,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: cabf36c4024e98e48bad166c04fbc62b, type: 2}
     - target: {fileID: 4999702374943621471, guid: 0e64e8c1349b8684ebc9389f381c79ec,
         type: 3}
       propertyPath: cam
       value: 
       objectReference: {fileID: 534669904}
+    - target: {fileID: 4999702374943621471, guid: 0e64e8c1349b8684ebc9389f381c79ec,
+        type: 3}
+      propertyPath: rotationSpeed
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e64e8c1349b8684ebc9389f381c79ec, type: 3}

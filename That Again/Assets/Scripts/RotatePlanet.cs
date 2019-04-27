@@ -9,12 +9,12 @@ public class RotatePlanet : MonoBehaviour
 
     void Update()
     {
-
-        if (InputManager.Instance.Hold)
+        if (InputManager.Instance.Touch.phase != TouchPhase.Moved)
         {
-            Vector3 eulerAngles = new Vector3(GameManager.Instance.SwipeDirection.y, -GameManager.Instance.SwipeDirection.x, 0);
-            gameObject.transform.Rotate(eulerAngles * rotationSpeed, Space.World);
+            return;
         }
+        Vector3 eulerAngles = new Vector3(GameManager.Instance.SwipeDirection.y, -GameManager.Instance.SwipeDirection.x, 0);
+        gameObject.transform.Rotate(eulerAngles * rotationSpeed, Space.World);
     }
 
 

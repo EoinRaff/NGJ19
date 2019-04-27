@@ -25,9 +25,6 @@ public class GameManager : Singleton<GameManager>
     public bool gameOver;
 
 
-    [Header("UI Refs")]
-    public Transform GameOverMenu;
-
     void Start()
     {
         #region Initialize Member Variables
@@ -106,7 +103,8 @@ public class GameManager : Singleton<GameManager>
         if (GameOver())
         {
             Debug.Log("Game Over!");
-            EnableGameOverMenu();
+            Time.timeScale = 0;
+            UIController.Instance.EnableGameOverMenu();
             
             //Game Over!
         }
@@ -116,21 +114,11 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
-    public void EnableGameOverMenu()
-    {
-        GameOverMenu.transform.gameObject.SetActive(true);
-        gameOver = true;
-    }
-
-    public void DisableGameOverMenu()
-    {
-        GameOverMenu.transform.gameObject.SetActive(false);
-        Reset();
-    }
 
 
     public void Reset()
     {
+        Time.timeScale = 1;
         foreach(Factory f in ObjectSpawner.Instance.spawnedFactories)
         {
             f.SetToInactive();

@@ -8,10 +8,8 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     public Transform obstaclePrefab;
 
     public List<Sprite> obstacleSprites;
-    // Start is called before the first frame update
-    [Header("Refs")]
-    public MeshFilter meshfilter;
-    private List<Vector3> world_v;
+
+
 
     public List<Transform> spawnPoints;
 
@@ -52,10 +50,11 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         }
         Vector3 location = spawnPoints[rngIndex].position;
         Factory f = spawnedFactories[rngIndex];
-        if(obstacleSprites != null)
-        {
-            f.rend.sprite = obstacleSprites[Random.Range(0, obstacleSprites.Count)];
+        if (obstacleSprites.Count > 0 && f.rend.GetType() == typeof(SpriteRenderer))
+        {   
+            ((SpriteRenderer)f.rend).sprite = obstacleSprites[Random.Range(0, obstacleSprites.Count)];
         }
+
         //spawnedFactories.TryGetValue(location, out f);
         prevRngIndex = rngIndex;
         return f;

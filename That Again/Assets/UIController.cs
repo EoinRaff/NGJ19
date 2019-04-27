@@ -4,10 +4,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class UIController : MonoBehaviour
+public class UIController : Singleton<UIController>
 {
     public TextMeshProUGUI yearsText;
     public Slider temperature;
+    public Button Reset;
 
     // Update is called once per frame
     void Update()

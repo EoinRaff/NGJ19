@@ -6,6 +6,8 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
 {
     [Header("Prefabs")]
     public Transform obstaclePrefab;
+
+    public List<Sprite> obstacleSprites;
     // Start is called before the first frame update
     [Header("Refs")]
     public MeshFilter meshfilter;
@@ -18,7 +20,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     public List<Factory> spawnedFactories;
 
     public float spawnDelay = 5.0f;
-    public float SpawnRate = 1.0f;
+    public float SpawnRate = 0.0f;
     void Start()
     {
         world_v = new List<Vector3>();
@@ -59,6 +61,10 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         }
         Vector3 location = spawnPoints[rngIndex].position;
         Factory f = spawnedFactories[rngIndex];
+        if(obstacleSprites != null)
+        {
+            f.rend.sprite = obstacleSprites[Random.Range(0, obstacleSprites.Count)];
+        }
         //spawnedFactories.TryGetValue(location, out f);
         prevRngIndex = rngIndex;
         return f;
@@ -78,7 +84,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
 
             f.SetToActive();
             //GameManager.Instance.IncrementObstacles();
-            yield return new WaitForSeconds(spawnDelay * SpawnRate);
+            yield return new WaitForSeconds(spawnDelay + SpawnRate);
             //yield return new WaitForEndOfFrame();
         }
     }

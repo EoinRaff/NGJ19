@@ -54,13 +54,17 @@ public class GameManager : Singleton<GameManager>
         CurrentTemperature += currentObstacles * Time.deltaTime;
     }
 
+    float incrementRate = 0.1f;
+
     void IncrementSpawnRate()
     {
-        ObjectSpawner.Instance.SpawnRate -= 0.1f;
+        incrementRate += 0.1f;
+        ObjectSpawner.Instance.SpawnRate -= incrementRate;
     }
     void DecrementSpawnRate()
     {
-        ObjectSpawner.Instance.SpawnRate += 0.1f;
+        incrementRate += 0.1f;
+        ObjectSpawner.Instance.SpawnRate += incrementRate;
     }
 
 
@@ -75,6 +79,7 @@ public class GameManager : Singleton<GameManager>
     }
 
     float delayTimer = 0;
+    public int yearsPassed = 0;
     void Update()
     {
         InputManager.Instance.ReadInput();
@@ -91,6 +96,7 @@ public class GameManager : Singleton<GameManager>
             Debug.Log("Increasing SpawnRate");
             IncrementSpawnRate();
             delayTimer = 0;
+            yearsPassed++;
         }
 
         if (GameOver())
@@ -131,8 +137,6 @@ public class GameManager : Singleton<GameManager>
         gameOver = false;
         delayTimer = 0;
         gameTime = 0;
-
-        
     }
 
     private Vector3 GetSwipeDirection()

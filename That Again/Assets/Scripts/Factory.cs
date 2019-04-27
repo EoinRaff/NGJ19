@@ -10,6 +10,9 @@ public class Factory : MonoBehaviour
 
     public AudioClip spawnSound;
     public AudioClip deathSound;
+
+    public ParticleSystem smokeEffect;
+    public ParticleSystem deathEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,15 +32,33 @@ public class Factory : MonoBehaviour
         col.enabled = true;
         GameManager.Instance.IncrementObstacles();
         AudioSourceManager.Instance.PlayEffect(spawnSound);
+        if (smokeEffect != null)
+        {
+            Debug.Log("SMOKE");
+            smokeEffect.Play();
+        }
     }
 
     public void SetToInactive()
     {
+    
         isActive = false;
         rend.enabled = false;
         col.enabled = false;
         GameManager.Instance.DecrementObstacles();
         AudioSourceManager.Instance.PlayEffect(deathSound);
+        if (smokeEffect != null)
+        {
+            smokeEffect.Stop();
+        }
+        if (deathEffect!=null)
+        {
+            //FIXME
+            var main = deathEffect.main;
+            main.loop = false;
+            deathEffect.Play();
+            deathEffect.Stop();
+        }
     }
 
     void OnMouseDown()

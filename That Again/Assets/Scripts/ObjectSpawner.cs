@@ -23,15 +23,6 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     public float SpawnRate = 0.0f;
     void Start()
     {
-        world_v = new List<Vector3>();
-        Matrix4x4 localToWorld = transform.localToWorldMatrix;
-
-        for (int i = 0; i < meshfilter.mesh.vertices.Length; ++i)
-        {
-            Vector3 v =(meshfilter.mesh.vertices[i]);
-            v += meshfilter.transform.position;
-            world_v.Add(v);
-        }
 
 
         if (spawnPoints != null)
@@ -47,7 +38,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         spawnedFactories = new List<Factory>();
         foreach (Transform trs in spawnPoints)
         {
-            Factory f = Instantiate(obstaclePrefab, trs.position, Quaternion.identity, transform).GetComponentInChildren<Factory>();
+            Factory f = Instantiate(obstaclePrefab,  trs).GetComponentInChildren<Factory>();
             spawnedFactories.Add(f);
         }
     }
@@ -87,21 +78,6 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
             yield return new WaitForSeconds(spawnDelay + SpawnRate);
             //yield return new WaitForEndOfFrame();
         }
-    }
-
-    [ContextMenu("Generate Objects")]
-    public void GenerateObjects()
-    {
-        foreach(Vector3 v in world_v)
-        {
-            Instantiate(obstaclePrefab, v + rngVector(), Quaternion.identity, transform);
-            Instantiate(obstaclePrefab, v + rngVector(), Quaternion.identity, transform);
-        }
-    }
-
-    Vector3 rngVector()
-    {
-        return new Vector3(Random.Range(-1.0f, 1.0f),0.0f, Random.Range(-1.0f, 1.0f));
     }
 
     // Update is called once per frame

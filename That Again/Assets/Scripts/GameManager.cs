@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -38,6 +39,9 @@ public class GameManager : Singleton<GameManager>
 
         SwipeDirection = Vector3.zero;
         #endregion
+
+        //UIController.Instance.Reset.enabled = false;
+
     }
 
     public bool GameOver()

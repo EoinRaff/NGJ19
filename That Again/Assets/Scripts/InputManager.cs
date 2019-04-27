@@ -7,6 +7,7 @@ public class InputManager : Singleton<InputManager>
     public bool Tap { get; private set; }
     public bool Hold { get; private set; }
     public Vector3 Position { get; private set; }
+    public Vector2 Direction { get; private set; }
 
 #if UNITY_ANDROID
     private Touch touch;
@@ -23,6 +24,7 @@ public class InputManager : Singleton<InputManager>
 
 
         touch = Input.GetTouch(0);
+        Direction = touch.position - touch.deltaPosition;
         switch (touch.phase)
         {
             case TouchPhase.Began:
@@ -62,18 +64,23 @@ public class InputManager : Singleton<InputManager>
         Hold = Input.GetMouseButton(0);
         Tap = Input.GetMouseButtonUp(0);
         Position = Input.mousePosition;
+        Direction = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
 #endif
 
 #if UNITY_WEBGL
         Hold = Input.GetMouseButton(0);
         Tap = Input.GetMouseButtonUp(0);
         Position = Input.mousePosition;
+        Direction = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+
 #endif
 
 #if UNITY_EDITOR
         Hold = Input.GetMouseButton(0);
         Tap = Input.GetMouseButtonUp(0);
         Position = Input.mousePosition;
+        Direction = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 #endif
 
     }

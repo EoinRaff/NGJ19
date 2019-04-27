@@ -4,5 +4,8 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/devPanning.unity
+    guid: d507b066fb6b6194689e65a6b90c7d96
   m_configObjects: {}

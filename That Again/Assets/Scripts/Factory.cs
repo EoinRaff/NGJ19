@@ -7,6 +7,9 @@ public class Factory : MonoBehaviour
     public bool isActive;
     public Renderer rend;
     public Collider col;
+
+    public AudioClip spawnSound;
+    public AudioClip deathSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +28,7 @@ public class Factory : MonoBehaviour
         rend.enabled = true;
         col.enabled = true;
         GameManager.Instance.IncrementObstacles();
+        AudioSourceManager.Instance.PlayEffect(spawnSound);
     }
 
     public void SetToInactive()
@@ -33,6 +37,7 @@ public class Factory : MonoBehaviour
         rend.enabled = false;
         col.enabled = false;
         GameManager.Instance.DecrementObstacles();
+        AudioSourceManager.Instance.PlayEffect(deathSound);
     }
 
     void OnMouseDown()

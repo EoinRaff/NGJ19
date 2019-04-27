@@ -43,6 +43,9 @@ public class GameManager : Singleton<GameManager>
         SwipeDirection = Vector3.zero;
         #endregion
 
+        AudioSourceManager.Instance.CrossTo(AudioSourceManager.Instance.one);
+
+
         //UIController.Instance.Reset.enabled = false;
 
     }
@@ -116,6 +119,8 @@ public class GameManager : Singleton<GameManager>
             IncrementTemperature();
         }
 
+        AudioSourceManager.Instance.CheckGameRange();
+
         yearsPassed = (int)Mathf.Floor( gameTime / SecondsPerYear);
 
     }
@@ -135,6 +140,7 @@ public class GameManager : Singleton<GameManager>
         gameOver = false;
         delayTimer = 0;
         gameTime = 0;
+        AudioSourceManager.Instance.Reset();
     }
 
     private Vector3 GetSwipeDirection()

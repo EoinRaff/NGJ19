@@ -44,7 +44,8 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
             {
                 rngIndex = Random.Range(0, spawnPoints.Count);
             }
-            Instantiate(obstaclePrefab, spawnPoints[rngIndex].position, Quaternion.identity, transform);
+//            Instantiate(obstaclePrefab, spawnPoints[rngIndex].position, spawnPoints[rngIndex].rotation, transform);
+            Instantiate(obstaclePrefab, spawnPoints[rngIndex].transform);
             prevRngIndex = rngIndex;
             GameManager.Instance.IncrementObstacles();
             yield return new WaitForSeconds(spawnDelay * SpawnRate);

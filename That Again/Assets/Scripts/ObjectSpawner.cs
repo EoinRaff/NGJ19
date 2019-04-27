@@ -14,6 +14,9 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     public List<Transform> spawnPoints;
 
 
+    public Dictionary<Vector3, Transform> spawnLocations;
+    public List<Factory> spawnedFactories;
+
     public float spawnDelay = 5.0f;
     public float SpawnRate = 1.0f;
     void Start()
@@ -28,10 +31,37 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
             world_v.Add(v);
         }
 
-        if(spawnPoints != null)
+
+        if (spawnPoints != null)
         {
+            IntializeDictionary();
+
             StartCoroutine(Generator());
         }
+    }
+
+    public void IntializeDictionary()
+    {
+        spawnedFactories = new List<Factory>();
+        foreach (Transform trs in spawnPoints)
+        {
+            Factory f = Instantiate(obstaclePrefab, trs.position, Quaternion.identity, transform).GetComponentInChildren<Factory>();
+            spawnedFactories.Add(f);
+        }
+    }
+
+    public Factory GetRandomFactory()
+    {
+        int rngIndex = Random.Range(0, spawnPoints.Count);
+        if (rngIndex == prevRngIndex)
+        {
+            rngIndex = Random.Range(0, spawnPoints.Count);
+        }
+        Vector3 location = spawnPoints[rngIndex].position;
+        Factory f = spawnedFactories[rngIndex];
+        //spawnedFactories.TryGetValue(location, out f);
+        prevRngIndex = rngIndex;
+        return f;
     }
 
     int prevRngIndex;
@@ -39,14 +69,15 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     {
         while (true)
         {
-            int rngIndex = Random.Range(0, spawnPoints.Count);
-            if(rngIndex == prevRngIndex)
+            Factory f = GetRandomFactory();
+
+            if (f.isActive)
             {
-                rngIndex = Random.Range(0, spawnPoints.Count);
+                f = GetRandomFactory();
             }
-            Instantiate(obstaclePrefab, spawnPoints[rngIndex].position, Quaternion.identity, transform);
-            prevRngIndex = rngIndex;
-            GameManager.Instance.IncrementObstacles();
+
+            f.SetToActive();
+            //GameManager.Instance.IncrementObstacles();
             yield return new WaitForSeconds(spawnDelay * SpawnRate);
             //yield return new WaitForEndOfFrame();
         }

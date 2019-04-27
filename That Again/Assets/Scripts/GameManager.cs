@@ -19,8 +19,13 @@ public class GameManager : Singleton<GameManager>
     public int currentObstacles;
 
     public float gameTime = 0;
+    public float spawnRateIncreaseDelay = 5.0f;
 
     public bool gameOver;
+
+
+    [Header("UI Refs")]
+    public Transform GameOverMenu;
 
     void Start()
     {
@@ -69,24 +74,30 @@ public class GameManager : Singleton<GameManager>
         currentObstacles--;
     }
 
+    float delayTimer = 0;
     void Update()
     {
         InputManager.Instance.ReadInput();
     
         SwipeDirection = GetSwipeDirection();
-
         gameTime += Time.deltaTime;
+        delayTimer += Time.deltaTime;
+        if (gameOver)
+            return;
 
-        if(gameTime % 10.0f == 0)
+        if(delayTimer > spawnRateIncreaseDelay)
         {
             //Every 10 Seconds Increment Spawn Rate
             Debug.Log("Increasing SpawnRate");
             IncrementSpawnRate();
+            delayTimer = 0;
         }
 
         if (GameOver())
         {
             Debug.Log("Game Over!");
+            EnableGameOverMenu();
+            
             //Game Over!
         }
         else
@@ -95,12 +106,33 @@ public class GameManager : Singleton<GameManager>
         }
     }
 
+    public void EnableGameOverMenu()
+    {
+        GameOverMenu.transform.gameObject.SetActive(true);
+        gameOver = true;
+    }
+
+    public void DisableGameOverMenu()
+    {
+        GameOverMenu.transform.gameObject.SetActive(false);
+        Reset();
+    }
+
+
     public void Reset()
     {
+        foreach(Factory f in ObjectSpawner.Instance.spawnedFactories)
+        {
+            f.SetToInactive();
+        }
+        ObjectSpawner.Instance.SpawnRate = 1.0f;
         currentObstacles = 0;
         CurrentTemperature = 0;
         gameOver = false;
+        delayTimer = 0;
         gameTime = 0;
+
+        
     }
 
     private Vector3 GetSwipeDirection()
@@ -113,11 +145,14 @@ public class GameManager : Singleton<GameManager>
 
     private void OnGUI()
     {
-        GUI.Label(new Rect(10, 10, 100, 20), "Current Obstacles" + currentObstacles);
-        GUI.Label(new Rect(10, 10, 100, 20), "Current Temperature " + CurrentTemperature);
-        //if (GUI.Button(new Rect(10, 10, 150, 100), "I am a button"))
-        //{
-        //    print("You clicked the button!");
-        //}
+        if (GUI.Button(new Rect(10, 10, 250, 20), "Current Temperature " + (int)CurrentTemperature + " : " + MaxTemperature))
+        {
+            print("You clicked the button!");
+        }
+        if (GUI.Button(new Rect(10, 30, 250, 20), "Current Obstacles" + currentObstacles))
+        {
+            print("You clicked the button!");
+        }
+       
     }
 }

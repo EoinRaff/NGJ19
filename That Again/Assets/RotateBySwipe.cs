@@ -5,7 +5,6 @@ using TMPro;
 
 public class RotateBySwipe : MonoBehaviour
 {
-    public TextMeshProUGUI debugTezt;
 
     float angularAcceleration = 0;
     float angularVelocity = 0;
@@ -46,7 +45,5 @@ public class RotateBySwipe : MonoBehaviour
 
         transform.Rotate(transform.up, angularVelocity);
 
-
-        debugTezt.text = "ANGLE: " + angularVelocity;
     }
 }

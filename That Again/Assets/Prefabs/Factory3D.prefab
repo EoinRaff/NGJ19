@@ -59,6 +59,8 @@ MonoBehaviour:
   isActive: 0
   rend: {fileID: 8197800015782288563}
   col: {fileID: 377695204478237705}
+  spawnSound: {fileID: 8300000, guid: 10c0309f2e556e2479096398e6079c08, type: 3}
+  deathSound: {fileID: 8300000, guid: 073d522d54546c84d89a63c4bbc333ce, type: 3}
 --- !u!1001 &8197800015780250835
 PrefabInstance:
   m_ObjectHideFlags: 0

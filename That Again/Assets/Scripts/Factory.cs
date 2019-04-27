@@ -20,6 +20,6 @@ public class Factory : MonoBehaviour
     {
         // load a new scene
         GameManager.Instance.DecrementObstacles();
-        Destroy(transform.parent.gameObject);
+        Destroy(gameObject);
     }
 }

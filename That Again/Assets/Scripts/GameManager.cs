@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -33,6 +34,9 @@ public class GameManager : Singleton<GameManager>
 
         SwipeDirection = Vector3.zero;
         #endregion
+
+        UIController.Instance.Reset.enabled = false;
+
     }
 
     public bool GameOver()
@@ -87,7 +91,9 @@ public class GameManager : Singleton<GameManager>
         if (GameOver())
         {
             Debug.Log("Game Over!");
-            //Game Over!
+            Time.timeScale = 0;
+
+            UIController.Instance.Reset.enabled = true;
         }
         else
         {
@@ -97,6 +103,8 @@ public class GameManager : Singleton<GameManager>
 
     public void Reset()
     {
+        UIController.Instance.Reset.enabled = false;
+        Time.timeScale = 1;
         currentObstacles = 0;
         CurrentTemperature = 0;
         gameOver = false;

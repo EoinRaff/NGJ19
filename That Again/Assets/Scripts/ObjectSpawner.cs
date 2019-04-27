@@ -9,13 +9,16 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
 
     public List<Sprite> obstacleSprites;
     public List<Transform> spawnPoints;
-
+    public List<Transform> spawnPointsWater;
 
     public Dictionary<Vector3, Transform> spawnLocations;
     public List<Factory> spawnedFactories;
+    public List<Factory> spawnedOilRigs;
 
     public float spawnDelay = 5.0f;
     public float SpawnRate = 0.0f;
+
+    public bool OilRigsEnabled = false;
 
     void Start()
     {
@@ -25,6 +28,10 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         {
             IntializeDictionary();
 
+            if (OilRigsEnabled && spawnPointsWater != null)
+            {
+                IntializeOilRigs();
+            }
             StartCoroutine(Generator());
         }
     }
@@ -39,6 +46,33 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         }
     }
 
+    public void IntializeOilRigs()
+    {
+        spawnedOilRigs = new List<Factory>();
+        foreach(Transform trs in spawnPointsWater)
+        {
+            Factory f = Instantiate(obstaclePrefab, trs).GetComponentInChildren<Factory>();
+            spawnedOilRigs.Add(f);
+        }
+    }
+
+    public Factory GetRandomOilRig()
+    {
+        int rngIndex = Random.Range(0, spawnPoints.Count);
+        if (rngIndex == prevRngIndex)
+        {
+            rngIndex = Random.Range(0, spawnPoints.Count);
+        }
+        Factory f = spawnedOilRigs[rngIndex];
+        if (obstacleSprites.Count > 0 && f.rend.GetType() == typeof(SpriteRenderer))
+        {
+            ((SpriteRenderer)f.rend).sprite = obstacleSprites[0];
+        }
+
+        prevRngIndex = rngIndex;
+        return f;
+    }
+
     public Factory GetRandomFactory()
     {
         int rngIndex = Random.Range(0, spawnPoints.Count);
@@ -50,7 +84,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         Factory f = spawnedFactories[rngIndex];
         if (obstacleSprites.Count > 0 && f.rend.GetType() == typeof(SpriteRenderer))
         {   
-            ((SpriteRenderer)f.rend).sprite = obstacleSprites[Random.Range(0, obstacleSprites.Count)];
+            ((SpriteRenderer)f.rend).sprite = obstacleSprites[1];
         }
 
         prevRngIndex = rngIndex;
@@ -63,10 +97,22 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         while (true)
         {
             Factory f = GetRandomFactory();
-
+            if (OilRigsEnabled)
+            {
+                int either = Random.Range(0, 2);
+                Factory[] director = { f, GetRandomOilRig() };
+                f = director[either];
+            }
+              //  Factory o = GetRandomOilRig();
             if (f.isActive)
             {
                 f = GetRandomFactory();
+                if (OilRigsEnabled)
+                {
+                    int either = Random.Range(0, 2);
+                    Factory[] director = { f, GetRandomOilRig() };
+                    f = director[either];
+                }
             }
 
             f.SetToActive();

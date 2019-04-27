@@ -5,7 +5,7 @@ using UnityEngine;
 public class Factory : MonoBehaviour
 {
     public bool isActive;
-    public SpriteRenderer rend;
+    public Renderer rend;
     public Collider col;
     // Start is called before the first frame update
     void Start()

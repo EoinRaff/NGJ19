@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObjectSpawner : MonoBehaviour
+public class ObjectSpawner : Singleton<ObjectSpawner>
 {
     [Header("Prefabs")]
     public Transform obstaclePrefab;
@@ -10,6 +10,12 @@ public class ObjectSpawner : MonoBehaviour
     [Header("Refs")]
     public MeshFilter meshfilter;
     private List<Vector3> world_v;
+
+    public List<Transform> spawnPoints;
+
+
+    public float spawnDelay = 5.0f;
+    public float SpawnRate = 1.0f;
     void Start()
     {
         world_v = new List<Vector3>();
@@ -21,13 +27,28 @@ public class ObjectSpawner : MonoBehaviour
             v += meshfilter.transform.position;
             world_v.Add(v);
         }
+
+        if(spawnPoints != null)
+        {
+            StartCoroutine(Generator());
+        }
     }
 
+    int prevRngIndex;
     IEnumerator Generator()
     {
         while (true)
         {
-            yield return new WaitForEndOfFrame();
+            int rngIndex = Random.Range(0, spawnPoints.Count);
+            if(rngIndex == prevRngIndex)
+            {
+                rngIndex = Random.Range(0, spawnPoints.Count);
+            }
+            Instantiate(obstaclePrefab, spawnPoints[rngIndex].position, Quaternion.identity, transform);
+            prevRngIndex = rngIndex;
+            GameManager.Instance.IncrementObstacles();
+            yield return new WaitForSeconds(spawnDelay * SpawnRate);
+            //yield return new WaitForEndOfFrame();
         }
     }
 

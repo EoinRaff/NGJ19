@@ -14,8 +14,7 @@ public class UIController : Singleton<UIController>
     // Update is called once per frame
     void Update()
     {
-        float years = GameManager.Instance.gameTime / 10f;
-        yearsText.text = "Years: " + Mathf.Floor(years);
+        yearsText.text = "Years: " + Mathf.Floor(GameManager.Instance.yearsPassed);
         temperature.value = GameManager.Instance.CurrentTemperature;
     }
 

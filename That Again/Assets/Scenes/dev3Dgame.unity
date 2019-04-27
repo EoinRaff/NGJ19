@@ -924,6 +924,36 @@ PrefabInstance:
       propertyPath: m_Color.a
       value: 0.7058824
       objectReference: {fileID: 0}
+    - target: {fileID: 7803031873525812197, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803031873525812197, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7803031873525812197, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_inputSource
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467772940952815800, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_inputSource
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467772940952815800, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_havePropertiesChanged
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1467772940952815800, guid: a8f42e7adcf3e3245a2974fdda0d2edb,
+        type: 3}
+      propertyPath: m_isInputParsingRequired
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a8f42e7adcf3e3245a2974fdda0d2edb, type: 3}
 --- !u!4 &4933005857952938596 stripped

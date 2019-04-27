@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : Singleton<GameManager>
 {
+    [SerializeField]
+    private const int maxSpawnRate = 5;
     private Camera mainCamera;
 
     private Vector3 screenPosition;
@@ -13,14 +15,18 @@ public class GameManager : Singleton<GameManager>
 
     public Vector3 SwipeDirection { get; private set; }
 
+    [Header("Game Difficulty Settings")]
+    public float spawnRate = maxSpawnRate;
+    public float spawnRateModifier = 0.01f;
+    private float minSpawnRate = 1.0f;
+
+
     [Header("Game State Variables")]
     public float MaxTemperature;
     public float CurrentTemperature;
-
     public int currentObstacles;
-
     public float gameTime = 0;
-    public float spawnRateIncreaseDelay = 5.0f;
+    public float SecondsPerYear = 5.0f;
 
     public bool gameOver;
 
@@ -55,17 +61,15 @@ public class GameManager : Singleton<GameManager>
         CurrentTemperature += currentObstacles * Time.deltaTime;
     }
 
-    float incrementRate = 0.1f;
 
     void IncrementSpawnRate()
     {
-        incrementRate += 0.1f;
-        ObjectSpawner.Instance.SpawnRate -= incrementRate;
+        ObjectSpawner.Instance.SpawnRate -= spawnRateModifier;
+        Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
     }
     void DecrementSpawnRate()
     {
-        incrementRate += 0.1f;
-        ObjectSpawner.Instance.SpawnRate += incrementRate;
+        ObjectSpawner.Instance.SpawnRate += spawnRateModifier;
     }
 
 
@@ -91,13 +95,12 @@ public class GameManager : Singleton<GameManager>
         if (gameOver)
             return;
 
-        if(delayTimer > spawnRateIncreaseDelay)
+        if(delayTimer > SecondsPerYear)
         {
             //Every 10 Seconds Increment Spawn Rate
             Debug.Log("Increasing SpawnRate");
             IncrementSpawnRate();
             delayTimer = 0;
-            yearsPassed++;
         }
 
         if (GameOver())
@@ -112,6 +115,9 @@ public class GameManager : Singleton<GameManager>
         {
             IncrementTemperature();
         }
+
+        yearsPassed = (int)Mathf.Floor( gameTime / SecondsPerYear);
+
     }
 
 

@@ -99,7 +99,7 @@ public class GameManager : Singleton<GameManager>
     {
         InputManager.Instance.ReadInput();
     
-        SwipeDirection = GetSwipeDirection();
+        //SwipeDirection = GetSwipeVector();
         gameTime += Time.deltaTime;
         delayTimer += Time.deltaTime;
         if (gameOver)
@@ -150,12 +150,12 @@ public class GameManager : Singleton<GameManager>
         AudioSourceManager.Instance.Reset();
     }
 
-    private Vector3 GetSwipeDirection()
+    private Vector3 GetSwipeVector()
     {
         previousWorldPosition = worldPosition;
         screenPosition = new Vector3(InputManager.Instance.Position.x, InputManager.Instance.Position.y, mainCamera.nearClipPlane);
         worldPosition = mainCamera.ScreenToWorldPoint(screenPosition);
-        return (worldPosition - previousWorldPosition).normalized;
+        return worldPosition - previousWorldPosition;
     }
 
 }

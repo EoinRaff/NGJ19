@@ -10,7 +10,7 @@ public class InputManager : Singleton<InputManager>
     public Vector2 Direction { get; private set; }
 
 #if UNITY_ANDROID
-    private Touch touch;
+    public Touch Touch { get; private set; }
 #endif
 
     public void ReadInput()
@@ -23,39 +23,40 @@ public class InputManager : Singleton<InputManager>
             return;
 
 
-        touch = Input.GetTouch(0);
-        Direction = touch.position - touch.deltaPosition;
-        switch (touch.phase)
+        Touch = Input.GetTouch(0);
+        Direction = Vector2.zero;
+        switch (Touch.phase)
         {
             case TouchPhase.Began:
                 Hold = true;
                 Tap = false;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
                 break;
             case TouchPhase.Moved:
                 Hold = true;
                 Tap = false;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
+                Direction = Touch.deltaPosition;
                 break;
             case TouchPhase.Stationary:
                 Hold = true;
                 Tap = false;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
                 break;
             case TouchPhase.Ended:
                 Hold = false;
                 Tap = true;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
                 break;
             case TouchPhase.Canceled:
                 Hold = false;
                 Tap = false;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
                 break;
             default:
                 Hold = false;
                 Tap = false;
-                Position = new Vector3(touch.position.x, touch.position.y, 0);
+                Position = new Vector3(Touch.position.x, Touch.position.y, 0);
                 break;
         }
 #endif

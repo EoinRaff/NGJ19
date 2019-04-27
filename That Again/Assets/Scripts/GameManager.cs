@@ -28,6 +28,13 @@ public class GameManager : Singleton<GameManager>
     public float gameTime = 0;
     public float SecondsPerYear = 5.0f;
 
+    float delayTimer = 0;
+    public int yearsPassed = 0;
+    [Range(0.1f, 2)]
+    public float temperatureIncreaseRate = 0.5f;
+    public float minTempIncreaseRate, maxTemperatureIncreaseRate;
+
+
     public bool gameOver;
 
 
@@ -43,8 +50,6 @@ public class GameManager : Singleton<GameManager>
         SwipeDirection = Vector3.zero;
         #endregion
 
-        //UIController.Instance.Reset.enabled = false;
-
     }
 
     public bool GameOver()
@@ -58,12 +63,18 @@ public class GameManager : Singleton<GameManager>
 
     void IncrementTemperature()
     {
-        CurrentTemperature += currentObstacles * Time.deltaTime;
+        temperatureIncreaseRate = Mathf.Lerp(minTempIncreaseRate, maxTemperatureIncreaseRate, currentObstacles/ObjectSpawner.Instance.spawnPoints.Count);
+        CurrentTemperature += currentObstacles * temperatureIncreaseRate* Time.deltaTime;
+        if (CurrentTemperature >=99)
+        {
+            CurrentTemperature = MaxTemperature;
+        }
     }
 
 
     void IncrementSpawnRate()
     {
+        spawnRateModifier = Mathf.Lerp(0.01f, 0.5f, Mathf.InverseLerp(0, ObjectSpawner.Instance.spawnPoints.Count, currentObstacles));
         ObjectSpawner.Instance.SpawnRate -= spawnRateModifier;
         Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
     }
@@ -83,8 +94,7 @@ public class GameManager : Singleton<GameManager>
         currentObstacles--;
     }
 
-    float delayTimer = 0;
-    public int yearsPassed = 0;
+
     void Update()
     {
         InputManager.Instance.ReadInput();
@@ -145,16 +155,4 @@ public class GameManager : Singleton<GameManager>
         return (worldPosition - previousWorldPosition).normalized;
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 10, 250, 20), "Current Temperature " + (int)CurrentTemperature + " : " + MaxTemperature))
-        {
-            print("You clicked the button!");
-        }
-        if (GUI.Button(new Rect(10, 30, 250, 20), "Current Obstacles" + currentObstacles))
-        {
-            print("You clicked the button!");
-        }
-       
-    }
 }

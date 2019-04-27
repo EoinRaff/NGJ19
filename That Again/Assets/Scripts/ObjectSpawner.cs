@@ -8,9 +8,6 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
     public Transform obstaclePrefab;
 
     public List<Sprite> obstacleSprites;
-
-
-
     public List<Transform> spawnPoints;
 
 
@@ -19,6 +16,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
 
     public float spawnDelay = 5.0f;
     public float SpawnRate = 0.0f;
+
     void Start()
     {
 
@@ -55,7 +53,6 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
             ((SpriteRenderer)f.rend).sprite = obstacleSprites[Random.Range(0, obstacleSprites.Count)];
         }
 
-        //spawnedFactories.TryGetValue(location, out f);
         prevRngIndex = rngIndex;
         return f;
     }

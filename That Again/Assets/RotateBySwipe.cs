@@ -35,7 +35,7 @@ public class RotateBySwipe : MonoBehaviour
         }
         else
         {
-            angularAcceleration = 0;
+            angularAcceleration = 0.0f;
         }
 
         float drag = angularVelocity * -0.1f;
@@ -43,7 +43,9 @@ public class RotateBySwipe : MonoBehaviour
         angularVelocity += angularAcceleration;
         angularVelocity += drag;
 
+
         transform.Rotate(transform.up, angularVelocity);
+
 
     }
 }

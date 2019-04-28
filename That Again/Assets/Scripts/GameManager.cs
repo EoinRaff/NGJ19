@@ -70,7 +70,7 @@ public class GameManager : Singleton<GameManager>
     void IncrementTemperature()
     {
         //temperatureIncreaseRate = Mathf.Lerp(minTempIncreaseRate, maxTemperatureIncreaseRate, currentObstacles/ObjectSpawner.Instance.spawnPoints.Count);
-        CurrentTemperature += currentObstacles * temperatureIncreaseRate* Time.deltaTime;
+        CurrentTemperature += currentObstacles * temperatureIncreaseRate;// * Time.deltaTime;
         if (CurrentTemperature >=99)
         {
             CurrentTemperature = MaxTemperature;
@@ -87,7 +87,7 @@ public class GameManager : Singleton<GameManager>
         float ratio =  5- ((float)currentFactories / (float)maxFactories);
 
        
-        ObjectSpawner.Instance.SpawnRate = ratio;
+        ObjectSpawner.Instance.SpawnRate = Mathf.Max(minSpawnRate, ratio);
         Debug.Log(((float)currentFactories / (float)maxFactories));
         //ObjectSpawner.Instance.SpawnRate = Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
 
@@ -130,6 +130,7 @@ public class GameManager : Singleton<GameManager>
             //Every 10 Seconds Increment Spawn Rate
             Debug.Log("Increasing SpawnRate");
             IncrementSpawnRate();
+            IncrementTemperature();
             delayTimer = 0;
         }
 
@@ -146,7 +147,6 @@ public class GameManager : Singleton<GameManager>
         }
         else
         {
-            IncrementTemperature();
         }
 
         AudioSourceManager.Instance.CheckGameRange();

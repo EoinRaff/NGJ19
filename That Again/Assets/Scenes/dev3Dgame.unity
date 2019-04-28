@@ -185,6 +185,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2082073432427853822, guid: 0e64e8c1349b8684ebc9389f381c79ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.72
+      objectReference: {fileID: 0}
     - target: {fileID: 991209060, guid: 0e64e8c1349b8684ebc9389f381c79ec, type: 3}
       propertyPath: debugTezt
       value: 
@@ -193,14 +198,13 @@ PrefabInstance:
       propertyPath: swipePower
       value: 1.5
       objectReference: {fileID: 0}
+    - target: {fileID: 4058617666354138035, guid: 0e64e8c1349b8684ebc9389f381c79ec,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.88
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e64e8c1349b8684ebc9389f381c79ec, type: 3}
---- !u!4 &197941269 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5436866312827318799, guid: 0e64e8c1349b8684ebc9389f381c79ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 74395137}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &220336232
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,7 +461,6 @@ GameObject:
   - component: {fileID: 913121304}
   - component: {fileID: 913121303}
   - component: {fileID: 913121302}
-  - component: {fileID: 913121305}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -511,7 +514,7 @@ Camera:
   m_HDR: 1
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
-  m_ForceIntoRT: 0
+  m_ForceIntoRT: 1
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -529,20 +532,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &913121305
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 913121301}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e27ae3b496b6c8440911d7e3a1f6591b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rotationSpeed: 10
-  planetTransform: {fileID: 197941269}
 --- !u!1001 &933955805
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -773,7 +762,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: 045364fa76918fb429ef636649f04703, type: 3}
+  m_Texture: {fileID: 2800000, guid: 9039dc70cbc6374499f7d242bfd651ff, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -950,6 +939,11 @@ PrefabInstance:
         type: 3}
       propertyPath: minTempIncreaseRate
       value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3945765861394676102, guid: 1e76ff26e84106b4880c478d0e30bdc2,
+        type: 3}
+      propertyPath: maxTemperatureIncreaseRate
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e76ff26e84106b4880c478d0e30bdc2, type: 3}

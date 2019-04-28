@@ -5,10 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/devPanning.unity
     guid: d507b066fb6b6194689e65a6b90c7d96
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/dev3Dgame.unity
     guid: c7b235a7893a77748bb8de9de6d71d34
+  - enabled: 0
+    path: Assets/Scenes/devRotation.unity
+    guid: 4907cc03243857f4aadf38dd26039081
   m_configObjects: {}

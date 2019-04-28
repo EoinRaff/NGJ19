@@ -18,7 +18,7 @@ public class GameManager : Singleton<GameManager>
     [Header("Game Difficulty Settings")]
     public float spawnRate = maxSpawnRate;
     public float spawnRateModifier = 0.01f;
-    private float minSpawnRate = 1.0f;
+    private float minSpawnRate = 2.5f;
 
 
     [Header("Game State Variables")]
@@ -63,7 +63,7 @@ public class GameManager : Singleton<GameManager>
 
     void IncrementTemperature()
     {
-        temperatureIncreaseRate = Mathf.Lerp(minTempIncreaseRate, maxTemperatureIncreaseRate, currentObstacles/ObjectSpawner.Instance.spawnPoints.Count);
+        //temperatureIncreaseRate = Mathf.Lerp(minTempIncreaseRate, maxTemperatureIncreaseRate, currentObstacles/ObjectSpawner.Instance.spawnPoints.Count);
         CurrentTemperature += currentObstacles * temperatureIncreaseRate* Time.deltaTime;
         if (CurrentTemperature >=99)
         {
@@ -74,7 +74,7 @@ public class GameManager : Singleton<GameManager>
 
     void IncrementSpawnRate()
     {
-        spawnRateModifier = Mathf.Lerp(0.01f, 0.5f, Mathf.InverseLerp(0, ObjectSpawner.Instance.spawnPoints.Count, currentObstacles));
+        spawnRateModifier = Mathf.Lerp(0.1f, 0.5f, Mathf.InverseLerp(0, ObjectSpawner.Instance.spawnPoints.Count, currentObstacles));
         ObjectSpawner.Instance.SpawnRate -= spawnRateModifier;
         Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
     }
@@ -99,7 +99,7 @@ public class GameManager : Singleton<GameManager>
     {
         InputManager.Instance.ReadInput();
     
-        SwipeDirection = GetSwipeDirection();
+        //SwipeDirection = GetSwipeVector();
         gameTime += Time.deltaTime;
         delayTimer += Time.deltaTime;
         if (gameOver)
@@ -150,12 +150,12 @@ public class GameManager : Singleton<GameManager>
         AudioSourceManager.Instance.Reset();
     }
 
-    private Vector3 GetSwipeDirection()
+    private Vector3 GetSwipeVector()
     {
         previousWorldPosition = worldPosition;
         screenPosition = new Vector3(InputManager.Instance.Position.x, InputManager.Instance.Position.y, mainCamera.nearClipPlane);
         worldPosition = mainCamera.ScreenToWorldPoint(screenPosition);
-        return (worldPosition - previousWorldPosition).normalized;
+        return worldPosition - previousWorldPosition;
     }
 
 }

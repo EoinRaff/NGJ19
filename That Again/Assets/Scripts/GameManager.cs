@@ -36,6 +36,8 @@ public class GameManager : Singleton<GameManager>
 
 
     public bool gameOver;
+    internal string EndGameMessage;
+
     public static int HighScore { get; private set; }
 
     void Start()
@@ -49,6 +51,10 @@ public class GameManager : Singleton<GameManager>
 
         SwipeDirection = Vector3.zero;
         #endregion
+
+        EndGameMessage = "Humanity has destroyed the earth with global warming.\nYou can give them a fresh start, and try to stop them from destroying the planet...";
+
+        UIController.Instance.EnableGameOverMenu();
 
     }
 
@@ -139,6 +145,11 @@ public class GameManager : Singleton<GameManager>
     {
         if (yearsPassed > HighScore)
             HighScore = yearsPassed;
+
+        EndGameMessage = string.Format("After {0} years, Humanity has destroyed the planet again. The longest they have survived is {1} years." +
+            "\nDo you want to try stop them from destroying Earth...", yearsPassed, HighScore);
+
+
     }
 
     public void Reset()

@@ -9,8 +9,9 @@ public class UIController : Singleton<UIController>
     public TextMeshProUGUI yearsText;
     public Slider temperature;
     public Transform gameOver;
-    public Transform inGameUI;
+    public Transform[] inGameUI;
     public Button Reset;
+    public TextMeshProUGUI endGameText;
 
     // Update is called once per frame
     void Update()
@@ -21,14 +22,21 @@ public class UIController : Singleton<UIController>
 
     public void EnableGameOverMenu()
     {
-        inGameUI.gameObject.SetActive(false);
+        foreach (var UIelement in inGameUI)
+        {
+            UIelement.gameObject.SetActive(false);
+        }
+        endGameText.text = GameManager.Instance.EndGameMessage;
         gameOver.gameObject.SetActive(true);
         GameManager.Instance.gameOver = true;
     }
 
     public void DisableGameOverMenu()
     {
-        inGameUI.gameObject.SetActive(true);
+        foreach (var UIelement in inGameUI)
+        {
+            UIelement.gameObject.SetActive(true);
+        }
         gameOver.gameObject.SetActive(false);
         GameManager.Instance.Reset();
     }

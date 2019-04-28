@@ -41,15 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Nice Filter
-    uniqueID: 159270553
-    locked: 0
-  - name: Pollution
-    uniqueID: 971297431
+  - name: Planet
+    uniqueID: 1869236167
     locked: 0
   - name: Factory
     uniqueID: 1581860569
     locked: 0
-  - name: Planet
-    uniqueID: 1869236167
+  - name: Pollution
+    uniqueID: 971297431
+    locked: 0
+  - name: Nice Filter
+    uniqueID: 159270553
+    locked: 0
+  - name: UI
+    uniqueID: 3015785701
     locked: 0

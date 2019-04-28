@@ -52,6 +52,8 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         foreach(Transform trs in spawnPointsWater)
         {
             Factory f = Instantiate(obstaclePrefab, trs).GetComponentInChildren<Factory>();
+            f.transform.Rotate(Vector3.forward, 90);
+            f.transform.Rotate(Vector3.up, 180);
             spawnedOilRigs.Add(f);
         }
     }
@@ -67,6 +69,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         if (obstacleSprites.Count > 0 && f.rend.GetType() == typeof(SpriteRenderer))
         {
             ((SpriteRenderer)f.rend).sprite = obstacleSprites[0];
+           
         }
 
         prevRngIndex = rngIndex;

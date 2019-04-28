@@ -11,7 +11,4 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/dev3Dgame.unity
     guid: c7b235a7893a77748bb8de9de6d71d34
-  - enabled: 0
-    path: Assets/Scenes/devRotation.unity
-    guid: 4907cc03243857f4aadf38dd26039081
   m_configObjects: {}

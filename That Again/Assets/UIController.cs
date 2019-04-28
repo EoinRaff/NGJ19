@@ -11,11 +11,20 @@ public class UIController : Singleton<UIController>
     public Transform gameOver;
     public Button Reset;
 
+    public Sprite ThermometerFill;
+    float startY;
+    float currentY;
+    float endY;
+
     // Update is called once per frame
     void Update()
     {
         yearsText.text = "Years: " + Mathf.Floor(GameManager.Instance.yearsPassed);
         temperature.value = GameManager.Instance.CurrentTemperature;
+
+        float tempPercentage = temperature.value / GameManager.Instance.MaxTemperature;
+        currentY = Mathf.Lerp(startY, endY, tempPercentage);
+        //Move thermometer fill down with the rate of the temperature
     }
 
     public void EnableGameOverMenu()

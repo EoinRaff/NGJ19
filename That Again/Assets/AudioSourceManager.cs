@@ -47,6 +47,8 @@ public class AudioSourceManager : Singleton<AudioSourceManager>
          range3 = false;
          range4 = false;
          range5 = false;
+
+         CrossTo(one);
     }
 
     public void CheckGameRange()

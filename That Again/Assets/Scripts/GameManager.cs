@@ -36,7 +36,7 @@ public class GameManager : Singleton<GameManager>
 
 
     public bool gameOver;
-
+    public static int HighScore { get; private set; }
 
     void Start()
     {
@@ -116,9 +116,12 @@ public class GameManager : Singleton<GameManager>
         if (GameOver())
         {
             Debug.Log("Game Over!");
+
+            CheckHighScore();
+
             Time.timeScale = 0;
             UIController.Instance.EnableGameOverMenu();
-            
+
             //Game Over!
         }
         else
@@ -132,7 +135,11 @@ public class GameManager : Singleton<GameManager>
 
     }
 
-
+    private void CheckHighScore()
+    {
+        if (yearsPassed > HighScore)
+            HighScore = yearsPassed;
+    }
 
     public void Reset()
     {

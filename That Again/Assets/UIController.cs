@@ -9,6 +9,7 @@ public class UIController : Singleton<UIController>
     public TextMeshProUGUI yearsText;
     public Slider temperature;
     public Transform gameOver;
+    public Transform inGameUI;
     public Button Reset;
 
     // Update is called once per frame
@@ -20,12 +21,14 @@ public class UIController : Singleton<UIController>
 
     public void EnableGameOverMenu()
     {
+        inGameUI.gameObject.SetActive(false);
         gameOver.gameObject.SetActive(true);
         GameManager.Instance.gameOver = true;
     }
 
     public void DisableGameOverMenu()
     {
+        inGameUI.gameObject.SetActive(true);
         gameOver.gameObject.SetActive(false);
         GameManager.Instance.Reset();
     }

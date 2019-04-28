@@ -13,10 +13,14 @@ public class Factory : MonoBehaviour
 
     public ParticleSystem smokeEffect;
     public ParticleSystem deathEffect;
+
+    public float activateDelayTime = 5.0f;
+    float delayTimer;
+    public bool delayed;
     // Start is called before the first frame update
     void Start()
     {
-        
+        StartCoroutine(delayCounter());
     }
 
     // Update is called once per frame
@@ -25,23 +29,44 @@ public class Factory : MonoBehaviour
         
     }
 
+    IEnumerator delayCounter()
+    {
+        while (true)
+        {
+            if (delayed)
+            {
+                delayTimer += Time.deltaTime;
+                if(delayTimer > activateDelayTime)
+                {
+                    delayed = false;
+                    delayTimer = 0;
+                }
+            }
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
     public void SetToActive()
     {
-        isActive = true;
-        rend.enabled = true;
-        col.enabled = true;
-        GameManager.Instance.IncrementObstacles();
-        AudioSourceManager.Instance.PlayEffect(spawnSound);
-        if (smokeEffect != null)
+        if (!delayed)
         {
-            Debug.Log("SMOKE");
-            smokeEffect.Play();
+            isActive = true;
+            rend.enabled = true;
+            col.enabled = true;
+            GameManager.Instance.IncrementObstacles();
+            AudioSourceManager.Instance.PlayEffect(spawnSound);
+            if (smokeEffect != null)
+            {
+                Debug.Log("SMOKE");
+                smokeEffect.Play();
+            }
         }
     }
 
     public void SetToInactive()
     {
-    
+        delayed = true;
+
         isActive = false;
         rend.enabled = false;
         col.enabled = false;

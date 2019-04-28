@@ -72,11 +72,20 @@ public class GameManager : Singleton<GameManager>
     }
 
 
+
     void IncrementSpawnRate()
     {
-        spawnRateModifier = Mathf.Lerp(0.1f, 0.5f, Mathf.InverseLerp(0, ObjectSpawner.Instance.spawnPoints.Count, currentObstacles));
-        ObjectSpawner.Instance.SpawnRate -= spawnRateModifier;
-        Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
+        int maxFactories = ObjectSpawner.Instance.OilRigsEnabled ? ObjectSpawner.Instance.spawnPoints.Count + ObjectSpawner.Instance.spawnPointsWater.Count : ObjectSpawner.Instance.spawnPoints.Count;
+        int currentFactories = currentObstacles;
+
+        float ratio =  5- ((float)currentFactories / (float)maxFactories);
+
+       
+        ObjectSpawner.Instance.SpawnRate = ratio;
+        Debug.Log(((float)currentFactories / (float)maxFactories));
+        //ObjectSpawner.Instance.SpawnRate = Mathf.Clamp(ObjectSpawner.Instance.SpawnRate, minSpawnRate, maxSpawnRate);
+
+
     }
     void DecrementSpawnRate()
     {
@@ -87,11 +96,16 @@ public class GameManager : Singleton<GameManager>
     public void IncrementObstacles()
     {
         currentObstacles++;
+        int maxFactories = ObjectSpawner.Instance.OilRigsEnabled ? ObjectSpawner.Instance.spawnPoints.Count + ObjectSpawner.Instance.spawnPointsWater.Count : ObjectSpawner.Instance.spawnPoints.Count;
+
+        currentObstacles = Mathf.Clamp(currentObstacles, 0, maxFactories);
     }
 
     public void DecrementObstacles()
     {
+        int maxFactories = ObjectSpawner.Instance.OilRigsEnabled ? ObjectSpawner.Instance.spawnPoints.Count + ObjectSpawner.Instance.spawnPointsWater.Count : ObjectSpawner.Instance.spawnPoints.Count;
         currentObstacles--;
+        currentObstacles = Mathf.Clamp(currentObstacles, 0, maxFactories);
     }
 
 

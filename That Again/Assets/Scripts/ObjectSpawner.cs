@@ -69,7 +69,6 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
         if (obstacleSprites.Count > 0 && f.rend.GetType() == typeof(SpriteRenderer))
         {
             ((SpriteRenderer)f.rend).sprite = obstacleSprites[0];
-           
         }
 
         prevRngIndex = rngIndex;
@@ -120,7 +119,7 @@ public class ObjectSpawner : Singleton<ObjectSpawner>
 
             f.SetToActive();
             //GameManager.Instance.IncrementObstacles();
-            yield return new WaitForSeconds(spawnDelay + SpawnRate);
+            yield return new WaitForSeconds(spawnDelay - SpawnRate);
             //yield return new WaitForEndOfFrame();
         }
     }
